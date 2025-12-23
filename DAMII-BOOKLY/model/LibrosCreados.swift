@@ -1,11 +1,9 @@
 import UIKit
 
-struct libro {
+struct librosCreados {
     var codigo: Int
     var titulo: String
-    var autor: String
     var genero: String
     var descripcion: String
-    var precio: Double
     var imagen: String
 }

@@ -1,0 +1,32 @@
+# Xcode
+.DS_Store
+*.swp
+*.xcuserstate
+xcuserdata/
+DerivedData/
+build/
+*.ipa
+*.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata
+*.xcodeproj/project.xcworkspace/xcuserdata
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Firebase (NO subir frameworks compilados)
+Pods/FirebaseAnalytics/
+Pods/GoogleAppMeasurement/
+
+# Archivos temporales macOS/Windows
+._*
+Thumbs.db
+Desktop.ini
+
+# Archivos de usuario Xcode
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+
+# Archivos de proyecto generados
+*.xcworkspace/contents.xcworkspacedata

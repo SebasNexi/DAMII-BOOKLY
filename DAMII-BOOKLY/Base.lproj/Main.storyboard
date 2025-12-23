@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2AQ-bA-Aj8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Nex-mW-ZlX">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -221,10 +221,11 @@
                                 <color key="backgroundColor" red="0.49411764740000003" green="0.67450982329999998" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Misterio">
+                                <buttonConfiguration key="configuration" style="plain" title="Ciencia">
                                     <backgroundConfiguration key="background"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="btnCiencia:" destination="8t2-ui-vNW" eventType="touchUpInside" id="ezD-Qc-7yt"/>
                                     <segue destination="eP4-jD-8UJ" kind="show" id="XXf-BA-9jU"/>
                                 </connections>
                             </button>
@@ -234,9 +235,12 @@
                                 <color key="backgroundColor" red="0.49411764740000003" green="0.67450982329999998" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Historia">
+                                <buttonConfiguration key="configuration" style="plain" title="Fantasia">
                                     <backgroundConfiguration key="background"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnFantasia:" destination="8t2-ui-vNW" eventType="touchUpInside" id="Dg7-K1-dGq"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Nz-F0-eag">
                                 <rect key="frame" x="16" y="401" width="171" height="77"/>
@@ -247,6 +251,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Ficcion">
                                     <backgroundConfiguration key="background"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnFiccion:" destination="8t2-ui-vNW" eventType="touchUpInside" id="mb6-1t-M9W"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="We8-aO-pdW">
                                 <rect key="frame" x="206" y="401" width="171" height="77"/>
@@ -257,6 +264,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Romance">
                                     <backgroundConfiguration key="background"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnRomance:" destination="8t2-ui-vNW" eventType="touchUpInside" id="aEZ-aa-xe3"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Di4-tr-EhM">
                                 <rect key="frame" x="16" y="497" width="171" height="77"/>
@@ -264,29 +274,12 @@
                                 <color key="backgroundColor" red="0.49411764740000003" green="0.67450982329999998" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Fantasia">
+                                <buttonConfiguration key="configuration" style="plain" title="Terror">
                                     <backgroundConfiguration key="background"/>
                                 </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdF-fF-Ry0">
-                                <rect key="frame" x="206" y="497" width="171" height="77"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49411764740000003" green="0.67450982329999998" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Ciencia">
-                                    <backgroundConfiguration key="background"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j4V-SZ-ztj">
-                                <rect key="frame" x="16" y="592" width="171" height="77"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49411764740000003" green="0.67450982329999998" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="terror">
-                                    <backgroundConfiguration key="background"/>
-                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnTerror:" destination="8t2-ui-vNW" eventType="touchUpInside" id="UPa-hZ-bcj"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GENEROS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6G-jH-vbp">
                                 <rect key="frame" x="106" y="223" width="188" height="48"/>
@@ -295,16 +288,6 @@
                                 <color key="textColor" red="0.49411764740000003" green="0.67450982329999998" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJs-0C-3FB">
-                                <rect key="frame" x="206" y="592" width="171" height="77"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49411764740000003" green="0.67450982329999998" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Accion">
-                                    <backgroundConfiguration key="background"/>
-                                </buttonConfiguration>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KZV-5V-XSz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -312,6 +295,13 @@
                     <tabBarItem key="tabBarItem" title="" image="search" selectedImage="search" id="WAd-Bx-wnT">
                         <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="btnCiencia" destination="957-7W-VKv" id="9N2-4l-tgO"/>
+                        <outlet property="btnFantasia" destination="Q3b-3E-kWq" id="wWU-Dc-uFz"/>
+                        <outlet property="btnFiccion" destination="4Nz-F0-eag" id="Kob-Qj-fkd"/>
+                        <outlet property="btnRomance" destination="We8-aO-pdW" id="8jl-bk-hph"/>
+                        <outlet property="btnTerror" destination="Di4-tr-EhM" id="EXP-eM-mXh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AnC-Tp-Vmi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -716,7 +706,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="cHL-eu-bl8">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="2AQ-bA-Aj8" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="2AQ-bA-Aj8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ziJ-gA-cam"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OMi-4M-SgU">
@@ -764,13 +754,13 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

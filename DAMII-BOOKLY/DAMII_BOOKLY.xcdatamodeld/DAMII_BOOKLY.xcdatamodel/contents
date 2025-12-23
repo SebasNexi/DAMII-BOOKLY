@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D70" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LibroEntity" representedClassName="LibroEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="autor" optional="YES" attributeType="String"/>
+        <attribute name="codigo" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="descripcion" optional="YES" attributeType="String"/>
+        <attribute name="genero" optional="YES" attributeType="String"/>
+        <attribute name="imagen" optional="YES" attributeType="String"/>
+        <attribute name="precio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="titulo" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="LibrosCreadosEntity" representedClassName="LibrosCreadosEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="codigo" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="descripcion" optional="YES" attributeType="String"/>
+        <attribute name="genero" optional="YES" attributeType="String"/>
+        <attribute name="imagen" optional="YES" attributeType="String"/>
+        <attribute name="titulo" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="PagoEntity" representedClassName="PagoEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="autor" optional="YES" attributeType="String"/>
+        <attribute name="codigo" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="genero" optional="YES" attributeType="String"/>
+        <attribute name="imagen" optional="YES" attributeType="String"/>
+        <attribute name="precio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="titulo" optional="YES" attributeType="String"/>
+    </entity>
 </model>

@@ -40,105 +40,180 @@ class ViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             print("✅ Usuario ya autenticado")
             
-            // ✅ MODIFICADO: COMENTAR navegación automática
-            // DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            //     self.navigateToHome()
-            // }
-            
-            // En su lugar, autocompletar email
+            // Autocompletar email
             if let userEmail = Auth.auth().currentUser?.email {
                 txtEmail.text = userEmail
             }
         }
     }
 
-    // ✅ BOTÓN INGRESAR - MODIFICADO
+    // ✅ BOTÓN INGRESAR - REDIRIGIR A TAB BAR CONTROLLER
     @IBAction func btnIngresar(_ sender: UIButton) {
-        // 1. Deshabilitar el botón
-            sender.isEnabled = false
-            sender.alpha = 0.7
+        print("🔄 Iniciando proceso de login...")
+        
+        // 1. Deshabilitar UI
+        sender.isEnabled = false
+        sender.alpha = 0.7
+        view.isUserInteractionEnabled = false
+        
+        // 2. Obtener y limpiar datos
+        let email = txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let password = txtPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        // 3. Validar campos
+        guard !email.isEmpty else {
+            enableUI(sender: sender)
+            showAlert(title: "Error", message: "Ingresa tu email")
+            txtEmail.becomeFirstResponder()
+            return
+        }
+        
+        guard !password.isEmpty else {
+            enableUI(sender: sender)
+            showAlert(title: "Error", message: "Ingresa tu contraseña")
+            txtPassword.becomeFirstResponder()
+            return
+        }
+        
+        guard isValidEmail(email) else {
+            enableUI(sender: sender)
+            showAlert(title: "Error", message: "Email inválido")
+            txtEmail.becomeFirstResponder()
+            return
+        }
+        
+        // 4. Firebase Login
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            // 5. Habilitar UI
+            self?.enableUI(sender: sender)
             
-            // 2. Validar campos
-            guard let email = txtEmail.text, !email.isEmpty,
-                  let password = txtPassword.text, !password.isEmpty else {
-                sender.isEnabled = true
-                sender.alpha = 1.0
-                showAlert(title: "Error", message: "Completa todos los campos")
+            // 6. Manejar error
+            if let error = error {
+                let errorMessage = self?.getErrorMessage(from: error) ?? "Credenciales incorrectas"
+                self?.showAlert(title: "Error", message: errorMessage)
+                self?.txtPassword.text = ""
+                self?.txtPassword.becomeFirstResponder()
                 return
             }
             
-            // 3. Validar email
-            if !isValidEmail(email) {
-                sender.isEnabled = true
-                sender.alpha = 1.0
-                showAlert(title: "Error", message: "Email inválido")
-                return
-            }
+            // 7. Login exitoso - MOSTRAR MENSAJE PERSONALIZADO
+            print("✅ Login exitoso")
             
-            // 4. Firebase Login
-            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-                // 5. Rehabilitar botón
-                sender.isEnabled = true
-                sender.alpha = 1.0
-                
-                // 6. Manejar error
-                if let error = error {
-                    self?.showAlert(title: "Error",
-                                  message: self?.getErrorMessage(from: error) ?? "Error desconocido")
-                    return
-                }
-                
-                // 7. Login exitoso - EJECUTAR SEGUE DIRECTAMENTE
-                print("✅ Login exitoso")
-                self?.performSegue(withIdentifier: "loginToMenu", sender: self)
-            }    }
+            // ✅ NUEVO: Mostrar mensaje de acceso con el formato solicitado
+            self?.showAccessSuccessMessage(email: email)
+        }
+    }
     
-    // ✅ NUEVO MÉTODO: Mostrar éxito de login
-    private func showLoginSuccess(email: String) {
+    // ✅ NUEVO MÉTODO: Mostrar mensaje de acceso exitoso
+    private func showAccessSuccessMessage(email: String) {
         let alert = UIAlertController(
-            title: "✅ LOGIN EXITOSO",
-            message: "Usuario: \(email)\n\nIngreso Correcto.",
+            title: "✅ Accediste correctamente",
+            message: "Usuario: \(email)",
             preferredStyle: .alert
         )
         
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        // Personalizar el mensaje (opcional)
+        let attributedMessage = NSMutableAttributedString(
+            string: "✅ Accediste correctamente\n\nUsuario: \(email)",
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 16),
+                .foregroundColor: UIColor.darkGray
+            ]
+        )
+        
+        // Resaltar el check y el email
+        let checkRange = (attributedMessage.string as NSString).range(of: "✅")
+        if checkRange.location != NSNotFound {
+            attributedMessage.addAttribute(.foregroundColor, value: UIColor.systemGreen, range: checkRange)
+        }
+        
+        let userRange = (attributedMessage.string as NSString).range(of: "Usuario: \(email)")
+        if userRange.location != NSNotFound {
+            attributedMessage.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 15), range: userRange)
+        }
+        
+        alert.setValue(attributedMessage, forKey: "attributedMessage")
+        
+        // OPCIÓN 1: Con título personalizado también
+        let attributedTitle = NSAttributedString(
+            string: "Acceso Exitoso",
+            attributes: [
+                .font: UIFont.boldSystemFont(ofSize: 18),
+                .foregroundColor: UIColor.systemGreen
+            ]
+        )
+        alert.setValue(attributedTitle, forKey: "attributedTitle")
+        
         present(alert, animated: true)
+        
+        // Redirigir al TabBarController después de 2 segundos (da tiempo a leer el mensaje)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            alert.dismiss(animated: true) {
+                self.navigateToTabBarController()
+            }
+        }
     }
     
-    // ✅ BOTÓN CREAR CUENTA - MODIFICADO
-    @IBAction func btnCrearCuenta(_ sender: UIButton) {
-        // ✅ MODIFICADO: Cargar desde Storyboard SIN segue
+    // ✅ NAVEGACIÓN A TAB BAR CONTROLLER
+    private func navigateToTabBarController() {
+        print("🚀 Navegando a Tab Bar Controller...")
         
-        // 1. Cargar Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        // 2. Intentar cargar RegistroViewController
+        // Usar el ID exacto que me dijiste: "TabBarController"
+        if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
+            print("✅ Encontrado Tab Bar Controller con ID: TabBarController")
+            
+            // Configurar presentación
+            tabBarController.modalPresentationStyle = .fullScreen
+            tabBarController.modalTransitionStyle = .coverVertical
+            present(tabBarController, animated: true, completion: nil)
+            
+        } else {
+            print("❌ No se encontró TabBarController con ID 'TabBarController'")
+            
+            // Intentar con otros IDs como fallback
+            let alternativeIDs = ["MainTabBarController", "HomeTabBarController"]
+            for tabBarID in alternativeIDs {
+                if let tabBarController = storyboard.instantiateViewController(withIdentifier: tabBarID) as? UITabBarController {
+                    print("✅ Encontrado con ID alternativo: \(tabBarID)")
+                    tabBarController.modalPresentationStyle = .fullScreen
+                    present(tabBarController, animated: true, completion: nil)
+                    return
+                }
+            }
+            
+            showAlert(title: "Error", message: "No se pudo cargar la aplicación principal")
+        }
+    }
+    
+    // ✅ BOTÓN CREAR CUENTA
+    @IBAction func btnCrearCuenta(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
         if let registroVC = storyboard.instantiateViewController(withIdentifier: "RegistroViewController") as? RegistroViewController {
-            // 3. Presentar modalmente
             registroVC.modalPresentationStyle = .fullScreen
             present(registroVC, animated: true)
         } else {
-            // 4. Si falla, mostrar error
             showAlert(title: "Error", message: "No se puede abrir el registro")
         }
     }
     
-    // MARK: - Navigation
-    private func navigateToHome() {
-        // ✅ MODIFICADO: COMENTAR porque no hay segue
-        // performSegue(withIdentifier: "showHome", sender: self) // ❌ COMENTADO
-        
-        print("⚠️ Sin NavigationController - No se puede navegar a Home")
+    // ✅ HABILITAR UI
+    private func enableUI(sender: UIButton) {
+        sender.isEnabled = true
+        sender.alpha = 1.0
+        view.isUserInteractionEnabled = true
     }
     
-    // Validar formato de email
+    // ✅ VALIDAR EMAIL
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
     
-    // Traducir errores de Firebase a español
+    // ✅ TRADUCIR ERRORES DE FIREBASE
     private func getErrorMessage(from error: Error) -> String {
         let errorCode = AuthErrorCode(rawValue: error._code)
         
@@ -150,15 +225,15 @@ class ViewController: UIViewController {
         case .userNotFound:
             return "No existe una cuenta con este email"
         case .userDisabled:
-                return "Esta cuenta ha sido deshabilitada"
+            return "Esta cuenta ha sido deshabilitada"
         case .networkError:
             return "Error de conexión. Verifica tu internet"
         default:
-            return "Error al iniciar sesión"
+            return "Error al iniciar sesión. Verifica tus credenciales"
         }
     }
     
-    // Mostrar alerta
+    // ✅ MOSTRAR ALERTA (para errores)
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title,
                                      message: message,
@@ -167,7 +242,7 @@ class ViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    // Recibir email desde registro
+    // ✅ RECIBIR EMAIL DESDE REGISTRO
     func setEmailForLogin(_ email: String) {
         txtEmail.text = email
         txtPassword.text = ""
@@ -178,7 +253,6 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-
 }
 
 // MARK: - UITextFieldDelegate
